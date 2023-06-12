@@ -2,7 +2,6 @@ import React from "react";
 import "../ToolStyles.css";
 import data from "../../../data/PinCodes/Pincode30052019.json";
 import { ALLSTATES } from "../../../Constants";
-import { URL } from "../../../Constants";
 import { Link } from "react-router-dom";
 
 // For Table

@@ -1,10 +1,13 @@
 import React from 'react';
 import { ProductCard } from '../components/Product/ProductCard';
+import { Auth } from '../hoc/Auth';
 
-export const Products = () => {
+const Products = (props) => {
   return (
     <div className='m-5'>
-        <ProductCard/>
+        <ProductCard   />
     </div>
   )
 }
+
+export default Auth(Products);

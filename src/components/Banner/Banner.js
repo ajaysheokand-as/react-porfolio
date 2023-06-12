@@ -1,6 +1,7 @@
 import React from 'react';
 import './Banner.css';
 import LaptopBanner from "../../Assets/Banner/Laptopbanner.jpg"
+import { Link } from 'react-router-dom';
 
 export const Banner = () => {
   return (
@@ -14,7 +15,9 @@ export const Banner = () => {
 					</strong>
 					<p>Laptops, Desktop<br/>
 						at very affordable price. </p>
-					<a href="#">Know More</a>
+						<Link to={"/Products"} className='ban_button'>
+							Know More
+					</Link>
 				</div>
 			</div>
 		</div>

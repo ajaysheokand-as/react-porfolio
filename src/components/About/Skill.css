@@ -139,7 +139,7 @@ body {
   }
   /*Edit here for css-sass*/
   .bar-fill-css-sass{
-      width: 90%;
+      width: 80%;
     background-color: #429f46;
     animation: bar-fill-css-sass 2s ease-out;
       -moz-animation: bar-fill-css-sass 2s ease-out;

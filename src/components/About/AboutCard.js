@@ -4,12 +4,13 @@ import { ImPointRight } from "react-icons/im";
 function AboutCard() {
   return (
     <Card className="quote-card-view">
+      <Card.Header>
+      Hi Everyone, I am <b >AjAy SHEOKAND </b>
+            from <b> Narwana, Haryana India.</b>
+      </Card.Header>
       <Card.Body>
         <blockquote className="blockquote mb-0">
           <p style={{ textAlign: "justify" }}>
-            Hi Everyone, I am <span className="purple">AjAy SHEOKAND </span>
-            from <span className="purple"> Narwana, Haryana India.</span>
-            <br />
             Software Engineer who loves to transform ideas into reality using
             code.
             <br />

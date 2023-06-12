@@ -46,10 +46,14 @@ p {
   color: #2f3640;
   margin: 0 2em;
   transition: all linear .2s;
-  width: 250px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media screen (max-width: 425px) {
+    max-width: 250px;
+  }
 }
 
 .product-card:hover,
@@ -60,7 +64,7 @@ p {
 
 .product-img {
   border-radius: 10px 10px 0 0;
-  height: 150px;
+  height: 250px;
   max-width: 100%;
 }
 

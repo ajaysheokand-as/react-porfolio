@@ -33,7 +33,7 @@
   color: #fff;
   margin: 7px 0 25px;
 }
-.ban_text a {
+.ban_button {
   display: inline-block;
   font: 800 19.39px/24px "Montserrat", sans-serif;
   background: #282828;
@@ -47,8 +47,10 @@
   transition: all 0.3s ease-in-out;
   text-decoration:none;
 }
-.ban_text a:hover {
+.ban_button:hover {
   background: #50af47;
+  text-decoration: none;
+  color: #ffff;
 }
 
 @media (min-width: 1200px) and (max-width: 1399px) {

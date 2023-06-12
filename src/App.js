@@ -6,19 +6,22 @@ import About from "./components/About/About";
 import Projects from "./components/Projects/Projects";
 import Footer from "./components/Footer";
 import Resume from "./components/Resume/ResumeNew";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import ScrollToTop from "./components/ScrollToTop";
+// import ScrollToTop from "./components/ScrollToTop";
 import { AgeCalculator } from "./components/Tools/AgeCalculator/AgeCalculator";
 import InstagramVideoDownloader from "./components/Tools/Instagram/InstagramVideoDownloader";
 import { PinCode } from "./components/Tools/PinCode/PinCode";
-import { Products } from "./Pages/Products";
+import  Products  from "./Pages/Products";
 import { ToolsHome } from "./components/Tools/ToolsHome";
-import { Quote } from "./components/Tools/Quote/Quote";
 import { Quotes } from "./Pages/Quotes";
+import { HartronPracticeSet } from "./components/Tools/Hartron/HartronPracticeSet";
+import { Login } from "./Pages/Login/Login";
+import { AddProduct } from "./Pages/Products/AddProduct";
+import { AllProduct } from "./components/Product/AllProduct";
 function App() {
   const [load, upadateLoad] = useState(true);
 
@@ -37,10 +40,26 @@ function App() {
       ) : (
         <div className="App" >
           <Navbar />
-         
+         {/* {console.log(Location.pathname.includes("login"))} */}
           {/* <ScrollToTop /> */}
-          <Switch>
-            <Route path="/" exact component={Home} />
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/project" element={<Projects/>} />
+            <Route path="/about" element={<About/>} />
+            {/* <Route path="resume" element={<Resume/>} /> */}
+            <Route path="/ageCalculator" element={<AgeCalculator/>} />
+            <Route path="/InstagramVideoDownloader" element={<InstagramVideoDownloader/>} />
+            <Route path="/PinCode" element={<PinCode/>} />
+            <Route path="/Products" element={<Products/>} />
+            <Route path="/Tools" element={<ToolsHome/>} />
+            <Route path="/Quotes" element={<Quotes/>} />
+            <Route path="/Hartron" element={<HartronPracticeSet/>} />
+            <Route path="/add_product" element={<AddProduct/>} />
+
+            {/* <Route path="/" exact component={Home} />
+            <Route path="/login" exact component={Login} />
             <Route path="/project" component={Projects} />
             <Route path="/about" component={About} />
             <Route path="/resume" component={Resume} />
@@ -50,7 +69,10 @@ function App() {
             <Route path="/Products" component={Products} />
             <Route path="/Tools" component={ToolsHome} />
             <Route path="/Quotes" component={Quotes} />
-          </Switch>
+            <Route path="/Hartron" component={HartronPracticeSet} />
+            <Route path="/add_product" component={AddProduct} />
+            <Route path="/all_products" component={AllProduct} /> */}
+          </Routes>
           <Footer />
         </div>
       )}
