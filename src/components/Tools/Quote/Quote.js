@@ -33,7 +33,7 @@ export const Quote = () => {
     getNewQuote();
   };
   return (
-    <main id="quote-box" className={`${state.curColor || "dark"}`}>
+    <main id="quote-box">
       {console.log("Class", state.curColor)}
       <div id="quote-content">
         <div id="text">{state.quoteText ? state.quoteText : "Loading..."}</div>

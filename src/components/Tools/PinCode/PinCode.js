@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../ToolStyles.css";
 import data from "../../../data/PinCodes/Pincode30052019.json";
 import { ALLSTATES } from "../../../Constants";
@@ -13,18 +13,23 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
 export const PinCode = () => {
-  const queryParameters = new URLSearchParams(window.location.search);
-//   const office = queryParameters.get("search") || "";
-  const state = queryParameters.get("state") || "All";
-//   console.log("office-->", state);
+  const [currentState, setCurrentState] = useState("All");
+  const [currentStatePin, setCurrentStatePin] = useState(data);
 
   // Filter According to State
-  var statePinCode = data.filter(function (value) {
-    return value.StateName == state;
-  });
-
-//   console.log(statePinCode);
-
+  function statePin(selectedState){
+     setCurrentState(selectedState);
+     if(selectedState == "All" ){
+      setCurrentStatePin(data) ;
+     }else{
+      let statePinCode = data.filter( (value) => {
+        return value.StateName == selectedState;
+      });
+      setCurrentStatePin(statePinCode) ;
+     }
+    
+  }
+ 
   const columns = [
     { dataField: "Office", text: "Office (Area)", sort: true },
     { dataField: "Pincode", text: "Pin Code" },
@@ -65,7 +70,7 @@ export const PinCode = () => {
 
   return (
     <div className="main-container">
-       <div className="title">{state} Pin Codes (Zip Code)</div>
+       <div className="title">{currentState} Pin Codes (Zip Code)</div>
         <hr/>
       <div className="row">
      
@@ -75,7 +80,7 @@ export const PinCode = () => {
             <ToolkitProvider
               bootstrap4
               keyField="id"
-              data={(state === "All" || state === "") ? data : statePinCode}
+              data={currentStatePin}
               columns={columns}
               search
             >
@@ -106,6 +111,7 @@ export const PinCode = () => {
                   to={"/PinCode?state=" + value}
                   key={index}
                   className="state-container"
+                  onClick={()=> statePin(value)}
                 >
                   {value}
                 </Link>

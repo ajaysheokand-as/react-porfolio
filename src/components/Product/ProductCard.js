@@ -6,8 +6,10 @@ import { useState } from "react";
 import { Auth } from "../../hoc/Auth";
 
  const ProductCardComp = (props) => {
+  console.log("ProductCard",props);
   const user = props.user;
   const [laptops, setLaptops] = useState([]);
+  const[isAdmin, setIsAdmin] = useState(props.isAdmin);
 
   useEffect(()=>{
     axios.get('http://localhost:4000/laptop/laptops',{
@@ -93,9 +95,9 @@ import { Auth } from "../../hoc/Auth";
      <div className="row header-space flex-row flex-wrap">
         {
             laptops.map( (value, index) =>{
-                return <div key={index} class="product-card mb-5">
-                <div class="product-img img-one"></div>
-                <div class="product-text">
+                return <div key={index} className="product-card mb-5">
+                <div className="product-img img-one"></div>
+                <div className="product-text">
                   <h3>{value?.brand && value.brand}</h3>
                  
                   {<p>
@@ -111,11 +113,11 @@ import { Auth } from "../../hoc/Auth";
                     {"Discount: " + value?.discount}
                   </h3>}
                 </div>
-                <div class="product-cart">
+                <div className="product-cart">
                   <a href="https://wa.me/+918570996916?text=Contact you back as soon as possible." target="blank">
 
-                  <button>Send Inquiry</button>
-                  </a>
+                 {isAdmin ? <button>Edit</button> :  <button>Send Inquiry</button>
+}                  </a>
                 </div>
               </div>
             })

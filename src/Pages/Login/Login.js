@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export const Login = () => {
+export const Login = (props) => {
 	const [loginData, setLoginData] = useState({});
 	const navigate = useNavigate();
 	const handleChange = (field, value) =>{
@@ -22,6 +22,7 @@ export const Login = () => {
     })
     .then(function (response) {
 		if(response.status === 200){
+			props.setIsAdmin(true);
 			console.log("response ", response);
 			localStorage.setItem("UserAccessToken", JSON.stringify(response.data))
 			navigate("/Products");
@@ -47,25 +48,25 @@ export const Login = () => {
     });
 	}
   return (
-    <div class="login-container">
-	<div class="login_box">
-		<h1>Welcome</h1>
-		<div class="input_box">
+    <div className="login-container">
+	<div className="login_box">
+		<h1 className='login-header'>Welcome</h1>
+		<div className="input_box">
 			<input onChange={(e) => handleChange("mobileNumber", e.target.value)} type="number" required=""/>
 			<label for="">Mobile Number</label>
-			<ion-icon class="icon " name="mail-outline"></ion-icon>
+			<ion-icon className="icon " name="mail-outline"></ion-icon>
 		</div>
-		<div class="input_box">
+		<div className="input_box">
 			<input onChange={(e) => handleChange("password", e.target.value)} type="password" required=""/>
 			<label for="">password</label>
-			<ion-icon class="icon" name="lock-closed-outline"></ion-icon>
+			<ion-icon className="icon" name="lock-closed-outline"></ion-icon>
 		</div>
-		<div class="rem">
+		<div className="rem">
 			{/* <input id="chack" type="checkbox"/>
 			<label for="chack">remember me</label> */}
 			{/* <a href="#">forget password</a> */}
 		</div>
-		<div class="login">
+		<div className="login">
 			<button onClick={handleLogin}>Log in </button>
 		</div>
 	</div>

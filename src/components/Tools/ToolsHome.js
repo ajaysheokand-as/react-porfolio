@@ -9,7 +9,8 @@ export const ToolsHome = () => {
     <>
     {/* className="project-heading" */}
       <div className="header-space m-4">
-        <Banner/>
+       
+        
         <h1 className="project-heading text-center header-space">
           Available <code>Tools</code>
         </h1>
@@ -17,21 +18,29 @@ export const ToolsHome = () => {
           <Link to={"/PinCode"}>
             <button class="fill">PIN Code Finder</button>
           </Link>
-          <Link to={"/ageCalculator"}>
-          <button class="pulse">Let's Check your Age</button>
+          <Link to={"/hartron"}>
+          <button class="slide">Hartron</button>
           </Link>
-          {/* <button class="close">Close</button> */}
-          <Link to={"/Products"}>
+          <Link to={"/products"}>
           <button class="raise"> Refurbished Laptop's</button>
           </Link>
-          <Link to={"/Quotes"}>
+          <Link to={"/quotes"}>
           <button class="up">Quotes</button>
           </Link>
-          <button class="slide">Available Soon</button>
+          <Link to={"#"}>
+          <button class="pulse">Available Soon</button>
+          </Link>
           <button class="offset">Available Soon</button>
         </div>
         <div className="header-space">
-        <Quote/>
+        <div className="row">
+          <div className="col-sm-12 col-md-6 mb-2" >
+          <Banner/>
+          </div>
+          <div className="col-sm-12 col-md-6 mb-2" >
+          <Quote/>
+          </div>
+        </div>
         </div>
       </div>
     </>

@@ -5,7 +5,7 @@ import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Projects from "./components/Projects/Projects";
 import Footer from "./components/Footer";
-import Resume from "./components/Resume/ResumeNew";
+// import Resume from "./components/Resume/ResumeNew";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./style.css";
 import "./App.css";
@@ -21,11 +21,13 @@ import { Quotes } from "./Pages/Quotes";
 import { HartronPracticeSet } from "./components/Tools/Hartron/HartronPracticeSet";
 import { Login } from "./Pages/Login/Login";
 import { AddProduct } from "./Pages/Products/AddProduct";
-import { AllProduct } from "./components/Product/AllProduct";
-function App() {
+import { Auth } from "./hoc/Auth";
+// import { AllProduct } from "./components/Product/AllProduct";
+function App(props) {
   const [load, upadateLoad] = useState(true);
-
+  const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
+    setIsAdmin(props.isAdmin);
     const timer = setTimeout(() => {
       upadateLoad(false);
     }, 1200);
@@ -39,39 +41,21 @@ function App() {
         <Preloader load={load} />
       ) : (
         <div className="App" >
-          <Navbar />
-         {/* {console.log(Location.pathname.includes("login"))} */}
-          {/* <ScrollToTop /> */}
+          <Navbar checkIsAdmin={isAdmin} setCheckIsAdmin={setIsAdmin}/>
           <Routes>
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login/>} />
+            <Route path="/login" element={<Login isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
             <Route path="/project" element={<Projects/>} />
             <Route path="/about" element={<About/>} />
-            {/* <Route path="resume" element={<Resume/>} /> */}
-            <Route path="/ageCalculator" element={<AgeCalculator/>} />
-            <Route path="/InstagramVideoDownloader" element={<InstagramVideoDownloader/>} />
+            <Route path="/age_calculator" element={<AgeCalculator/>} />
+            <Route path="/instagram_video_downloader" element={<InstagramVideoDownloader/>} />
             <Route path="/PinCode" element={<PinCode/>} />
-            <Route path="/Products" element={<Products/>} />
-            <Route path="/Tools" element={<ToolsHome/>} />
-            <Route path="/Quotes" element={<Quotes/>} />
-            <Route path="/Hartron" element={<HartronPracticeSet/>} />
+            <Route path="/products" element={<Products/>} />
+            <Route path="/tools" element={<ToolsHome/>} />
+            <Route path="/quotes" element={<Quotes/>} />
+            <Route path="/hartron" element={<HartronPracticeSet/>} />
             <Route path="/add_product" element={<AddProduct/>} />
-
-            {/* <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/project" component={Projects} />
-            <Route path="/about" component={About} />
-            <Route path="/resume" component={Resume} />
-            <Route path="/ageCalculator" component={AgeCalculator} />
-            <Route path="/InstagramVideoDownloader" component={InstagramVideoDownloader} />
-            <Route path="/PinCode" component={PinCode} />
-            <Route path="/Products" component={Products} />
-            <Route path="/Tools" component={ToolsHome} />
-            <Route path="/Quotes" component={Quotes} />
-            <Route path="/Hartron" component={HartronPracticeSet} />
-            <Route path="/add_product" component={AddProduct} />
-            <Route path="/all_products" component={AllProduct} /> */}
           </Routes>
           <Footer />
         </div>
@@ -80,4 +64,4 @@ function App() {
   );
 }
 
-export default App;
+export default Auth(App);

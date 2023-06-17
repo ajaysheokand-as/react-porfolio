@@ -5,15 +5,16 @@ import { Link } from 'react-router-dom';
 
 export const Banner = () => {
   return (
-    <section class="ban_sec">
-		<div class="container">
-			<div class="ban_img">
+    <section className="ban_sec">
+		<div className="h-100">
+			<div className="ban_img">
 	    <img src={LaptopBanner} alt="banner" border="0"/>
-				<div class="ban_text">
+				<div className="ban_text">
 					<strong>
-						<span>We Provide</span><br/> Refurbished
+						{/* <span>We Provide</span> */}
+						 Refurbished
 					</strong>
-					<p>Laptops, Desktop<br/>
+					<p >Laptops, Desktop<br/>
 						at very affordable price. </p>
 						<Link to={"/Products"} className='ban_button'>
 							Know More

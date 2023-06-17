@@ -9,14 +9,6 @@ import { Quote } from "../Tools/Quote/Quote";
 function Home() {
   return (
     <>
-    <div className="header-space">
-      <div className="row">
-      <div className="col-12"><Banner/></div>
-      </div>
-      
-        <div className="d-flex justify-content-center m-4"><Quote/></div>
-    
-    </div>
     <section>
       <Container fluid className="home-section" id="home">
         <Container className="home-content">
@@ -70,6 +62,21 @@ function Home() {
         </Container>
       </Container>
     </section>
+    <div className="mt-2">
+      {/* <div className="row">
+      <div className="col-12"><Banner/></div>
+      </div> */}
+      
+        <div className="d-flex justify-content-center m-4 row">
+        <div className="col-sm-12 col-md-6 mb-2">
+        <Banner/>
+            </div>
+          <div className="col-sm-12 col-md-6 mb-2">
+            <Quote/>
+            </div>
+          </div>
+    
+    </div>
     </>
   );
 }

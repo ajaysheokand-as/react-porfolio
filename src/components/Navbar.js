@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
-import { ImBlog } from "react-icons/im";
 import {
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
@@ -11,10 +10,10 @@ import {
 } from "react-icons/ai";
 
 import { MdDeveloperMode } from "react-icons/md";
-
 import { CgFileDocument } from "react-icons/cg";
+import { Auth } from "../hoc/Auth";
 
-function NavBar() {
+function NavBar(props) {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
 
@@ -24,6 +23,13 @@ function NavBar() {
     } else {
       updateNavbar(false);
     }
+  }
+
+  const handleLogout = () =>{
+    localStorage.removeItem('UserAccessToken');
+    const userAccessToken = localStorage.getItem('UserAccessToken');
+    console.log("userAccessToken navbar", userAccessToken);
+    props.setCheckIsAdmin(false);
   }
 
   window.addEventListener("scroll", scrollHandler);
@@ -90,15 +96,16 @@ function NavBar() {
               </Nav.Link>
             </Nav.Item>
 
-            <Nav.Item>
+           <Nav.Item>
               <Nav.Link
                 as={Link}
-                to="/login"
-                onClick={() => updateExpanded(false)}
+                to={props.checkIsAdmin ? "" : "/login"}
+                onClick={() => props.checkIsAdmin ? handleLogout() : updateExpanded(false) }
               >
-                <AiOutlineUser style={{ marginBottom: "2px" }} /> Login
+                <AiOutlineUser style={{ marginBottom: "2px" }} /> {props.checkIsAdmin ? "Logout" : "Login" }
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item> 
+           
 
             {/* <Nav.Item>
               <Nav.Link
@@ -116,4 +123,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Auth(NavBar);
