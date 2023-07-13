@@ -16,10 +16,6 @@ export const AddProduct = () => {
   const [productData, setProductData] = useState({});
   const maxNumber = 5;
 
-  useEffect(()=>{
-    console.log("productData (useEffect)=>",productData);
-  },[productData])
-
   const uploadImage = (imageList) =>{
     let formData = new FormData();
     for (var i = 0; i < imageList.length; i++) {
@@ -52,12 +48,8 @@ export const AddProduct = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = async (data) => {
-    let finalProduct = {...productData, ...data};
-    console.log("On product Addition=>",data);
-    await setProductData(prevData => ({...prevData, ...data}))
-    
-    console.log("data 51=>", productData);
+  const onSubmit = (data) => {
+    let finalProduct = {...productData, ...data};    
     axios.post('http://localhost:4000/laptop/laptops',{
       body: finalProduct,
       headers: {
