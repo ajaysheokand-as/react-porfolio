@@ -3,14 +3,14 @@ import HartronQuestions from "../../../data/Hartron/HartronQuestions";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { FormGroup, Input } from "reactstrap";
 
-export const HartronPracticeSet = () => {
-  const [itemsPerPage, setItemPerPage] = useState(5); // define number of items to display per page
+export const HartronPracticeSet = (props) => {
+  const isPracticeTest = props.isPracticeTest || false;
+  const [itemsPerPage, setItemPerPage] = useState(isPracticeTest ? 1 : 5); // define number of items to display per page
   const [showAnswer, setShowAnswer] = useState(-1);
   const [submittedAnswer, setSubmittedAnswer] = useState();
   const [questions, setQuestions] = useState(HartronQuestions);
   const handleShowAnswer = (index, submittedValue = null) => {
     if (submittedValue !== null) {
-      console.log("submittedValue", submittedValue);
       setSubmittedAnswer(submittedValue);
     }
     setShowAnswer(index);
@@ -46,11 +46,15 @@ export const HartronPracticeSet = () => {
     setShowAnswer(-1);
   };
 
+  const handleAnswerSubmit = (value) => {
+    console.log("value: " + value);
+  };
+
   const startIdx = (currentPage - 1) * itemsPerPage;
   const endIdx = startIdx + itemsPerPage;
 
   const currentItems = questions?.slice(startIdx, endIdx);
-  let totalPages = Math.ceil(questions?.length / itemsPerPage);
+  let totalPages = isPracticeTest ? 25 : Math.ceil(questions?.length / itemsPerPage) ;
 
   function goToPage(pageNumber) {
     setCurrentPage(pageNumber);
@@ -64,7 +68,7 @@ export const HartronPracticeSet = () => {
           <Card.Title>
             Let's Prepare for Hartron DEO (Data Entry Operator)
           </Card.Title>
-          <div>
+          {!isPracticeTest && <div>
             <FormGroup>
               <strong>Ques./page </strong>
               <Input
@@ -81,7 +85,7 @@ export const HartronPracticeSet = () => {
                 <option value="20">20</option>
               </Input>
             </FormGroup>
-          </div>
+          </div>}
         </div>
 
         {currentItems?.map(
@@ -107,7 +111,7 @@ export const HartronPracticeSet = () => {
                           />
                           <span
                             className={
-                              showAnswer == i && item.Ans == "A"
+                              showAnswer == i && item.Ans == "A" && !isPracticeTest
                                 ? "bg-success text-white p-1"
                                 : "text-dark p-1"
                             }
@@ -127,7 +131,7 @@ export const HartronPracticeSet = () => {
                           />
                           <span
                             className={
-                              showAnswer == i && item.Ans == "B"
+                              showAnswer == i && item.Ans == "B" && !isPracticeTest
                                 ? "bg-success text-white p-1"
                                 : "text-dark p-1"
                             }
@@ -140,14 +144,14 @@ export const HartronPracticeSet = () => {
                           <Input
                             type="radio"
                             name="radio1"
-                            checked={showAnswer == i && submittedAnswer == "C"}
+                            checked={(showAnswer == i && submittedAnswer == "C")}
                             onChange={(e) => {
                               handleShowAnswer(i, "C");
                             }}
                           />
                           <span
                             className={
-                              showAnswer == i && item.Ans == "C"
+                              showAnswer == i && item.Ans == "C" && !isPracticeTest 
                                 ? "bg-success text-white p-1"
                                 : "text-dark p-1"
                             }
@@ -167,7 +171,7 @@ export const HartronPracticeSet = () => {
                           />
                           <span
                             className={
-                              showAnswer == i && item.Ans == "D"
+                              showAnswer == i && item.Ans == "D" && !isPracticeTest
                                 ? "bg-success text-white p-1"
                                 : "text-dark p-1"
                             }
@@ -184,14 +188,19 @@ export const HartronPracticeSet = () => {
                       <Button
                         color="success"
                         onClick={() => {
-                          handleShowAnswer(i);
+                          if(isPracticeTest){
+                              handleAnswerSubmit(item.Ans == submittedAnswer);
+                          }else{
+                            handleShowAnswer(i);
+                          }
+                            
                         }}
                       >
-                        Check Answer
+                        {isPracticeTest ? "Submit Answer" :"Check Answer"}
                       </Button>
                     </Col>
                     <Col className=" m-1 " lg={4}>
-                      {showAnswer == i && <span>Ans: {item.Ans}</span>}
+                      {showAnswer == i && !isPracticeTest &&  <span>Ans: {item.Ans}</span>}
                     </Col>
                     <Col className=" m-1 " lg={4}>
                       Topic: {item.TOPIC}
@@ -222,7 +231,7 @@ export const HartronPracticeSet = () => {
         </div>
       </div>
       <div className="col-sm-12 col-md-4">
-        <div>
+        {!isPracticeTest && <div>
           <strong className="row">All Categories</strong>
           {uniqueCategories.map((item, i) => {
             return (
@@ -238,9 +247,9 @@ export const HartronPracticeSet = () => {
               </Button>
             );
           })}
-        </div>
+        </div>}
         <div>
-          <strong className="row pt-3">All Pages</strong>
+          <strong className="row pt-3">{isPracticeTest ? "Question Number" :"All Pages"}</strong>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map(
             (pageNum) => (
               <Button

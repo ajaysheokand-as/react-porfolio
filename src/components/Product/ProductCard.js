@@ -4,11 +4,15 @@ import "../Tools/ToolStyles.css";
 import axios from 'axios';
 import { useState } from "react";
 import { Auth } from "../../hoc/Auth";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import swal from 'sweetalert';
+
 
  const ProductCardComp = (props) => {
-  console.log("ProductCard",props);
-  const user = props.user;
+  const navigate = useNavigate();
   const [laptops, setLaptops] = useState([]);
+  const [updateProducts, setUpdateProducts] = useState(false);
   const[isAdmin, setIsAdmin] = useState(props.isAdmin);
 
   useEffect(()=>{
@@ -24,7 +28,41 @@ import { Auth } from "../../hoc/Auth";
     .catch(function (error) {
       console.log(error);
     });
-  }, []);
+  }, [updateProducts]);
+
+  const handleRemoveProduct = (product) => {
+    swal({
+      title: "Are you sure you want to remove ?",
+      text: "This item will be removed permanently.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios.delete(`http://localhost:4000/laptop/${product}`,{
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+        setUpdateProducts(!updateProducts);
+        swal("This item has been deleted!", {
+          icon: "success",
+        });
+        // setLaptops(response.data.Laptops);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      }else{
+        swal("Hi, Your item is safe!");
+      }
+
+      
+    });
+  };
 
 //     const products = [
 //         {
@@ -92,11 +130,19 @@ import { Auth } from "../../hoc/Auth";
 // ];
   return (
     <>
-     <div className="row header-space flex-row flex-wrap">
+       <div className="d-flex justify-content-between header-space">
+        <div>
+          <h1>All Products</h1>
+        </div>
+        <div>
+          {isAdmin && <Button variant="success" onClick={()=>{navigate("/add_product");}}>Add New</Button>}
+        </div>
+      </div>
+     <div className="row mt-3 flex-row flex-wrap">
         {
             laptops.map( (value, index) =>{
                 return <div key={index} className="product-card mb-5">
-                <div className="product-img img-one"></div>
+                {/* <div className="product-img img-one"></div> */}
                 <div className="product-text">
                   <h3>{value?.brand && value.brand}</h3>
                  
@@ -114,9 +160,9 @@ import { Auth } from "../../hoc/Auth";
                   </h3>}
                 </div>
                 <div className="product-cart">
-                  <a href="https://wa.me/+918570996916?text=Contact you back as soon as possible." target="blank">
+                  <a href={isAdmin ? "#" : "https://wa.me/+918570996916?text=Contact you back as soon as possible."} target={!isAdmin && "blank"}>
 
-                 {isAdmin ? <button>Edit</button> :  <button>Send Inquiry</button>
+                 {isAdmin ? <button onClick={()=>{handleRemoveProduct(value._id)}}>Mark as Sold</button> :  <button>Send Inquiry</button>
 }                  </a>
                 </div>
               </div>

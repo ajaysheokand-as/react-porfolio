@@ -55,6 +55,7 @@ function App(props) {
             <Route path="/tools" element={<ToolsHome/>} />
             <Route path="/quotes" element={<Quotes/>} />
             <Route path="/hartron" element={<HartronPracticeSet/>} />
+            <Route path="/test_practice" element={<HartronPracticeSet isPracticeTest = {true}/>} />
             <Route path="/add_product" element={<AddProduct/>} />
           </Routes>
           <Footer />

@@ -1,8 +1,5 @@
 export default[
 {
-TOPIC: "All"
-},
-{
 Questions: "Int(-67.1) returns",
 A: "-67",
 B: "67",
@@ -7975,6 +7972,9 @@ C: "show the value of a data point",
 D: "b and c",
 Ans: "D",
 TOPIC: "Word/xcl"
-}
+},
+{
+    TOPIC: "All"
+},
 ];
 

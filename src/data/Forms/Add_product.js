@@ -1,7 +1,7 @@
 export default [
     {
-        name: "brand_name",
-        lable: "Brand Name",
+        name: "brand",
+        lable: "Brand and Model Name ",
         type:"text",
         condition:{
             required: "Name is Required"
@@ -44,7 +44,7 @@ export default [
     {
         name: "generation",
         lable: "Generation",
-        type:"Number",
+        type:"number",
         condition:{
             required: false
         }
@@ -68,7 +68,7 @@ export default [
     {
         name: "description",
         lable: "Description",
-        type:"text",
+        type:"text-area",
         condition:{
             required: false
         }
