@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef  } from "react";
 import { useForm } from "react-hook-form";
 import Add_product from "../../data/Forms/Add_product";
 import { FormFeedback, Label } from "reactstrap";
@@ -15,6 +15,8 @@ export const AddProduct = () => {
   const [images, setImages] = useState([]);
   const [productData, setProductData] = useState({});
   const maxNumber = 5;
+  const formRef = useRef(null);
+
 
   const uploadImage = (imageList) =>{
     let formData = new FormData();
@@ -38,9 +40,28 @@ export const AddProduct = () => {
         });
   }
 
+  const deleteImage = () =>{
+    axios.delete(`http://localhost:4000/upload/uploadImage/${productData.image.filename}`, {
+      headers:{
+        'Access-Control-Allow-Origin': '*',
+        "Content-Type": "multipart/form-data",
+      }
+    }).then((response) => {
+      // handle the response
+          console.log("Image Uploaded",response);
+          // setImages(response.data.file);
+          setProductData({"image": response.data.file})
+        })
+        .catch((error) => {
+          // handle errors
+          console.log("Image not Uploaded",error);
+        });
+
+  }
+
   const onChange = ( imageList, addUpdateIndex) => {
     setImages(imageList);
-    imageList && uploadImage(imageList);
+    (imageList.length > 0) && uploadImage(imageList);
 
   };
   const {
@@ -59,6 +80,7 @@ export const AddProduct = () => {
     })
     .then(function (response) {
       console.log("Product Added",response);
+      formRef.current.reset();
       swal({
         title: "Good job!",
         text: "Item Added successfully",
@@ -79,7 +101,7 @@ export const AddProduct = () => {
     <>
     
     <div className="header-space">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className="d-flex flex-row flex-wrap container m-3">
         <div className="col-12 d-flex justify-content-between">
         <div>
@@ -128,7 +150,7 @@ export const AddProduct = () => {
           })}
 
           <div className="col-sm-12 col-md-6">
-            <Label className="mt-2">Upload Image</Label>
+            {(images.length) === 0 && <Label className="mt-2">Upload Image</Label>}
             <ImageUploading
               multiple
               value={images}
@@ -150,24 +172,24 @@ export const AddProduct = () => {
               }) => (
                 // write your building UI
                 <div className="upload__image-wrapper">
-                  <button 
+                  {!(imageList.length > 0) && <button 
                     className="fill m-1"
                     style={isDragging ? { color: "red" } : null}
                     onClick={(e)=>{e.preventDefault(); onImageUpload()}}
                     {...dragProps}
                   >
                     Choose Image
-                  </button>
+                  </button>}
                   &nbsp;
                   {/* <button className="fill m-1" onClick={onImageRemoveAll}>Remove all images</button> */}
-                  {Array.isArray(imageList) && imageList.map((image, index) => (
+                  {Array.isArray(imageList) &&  (imageList.length > 0) && imageList.map((image, index) => (
                     <div key={index} className="image-item d-flex m-1 p-1">
                       <img src={image.data_url} alt="" width="100" />
                       <div className="image-item__btn-wrapper">
                         {/* <button className="m-1 fill" onClick={() => onImageUpdate(index)}>
                           Update
                         </button> */}
-                        <button className="m-1 fill" onClick={() => onImageRemove(index)}>
+                        <button className="ml-3 fill" onClick={() => {onImageRemove(index); deleteImage()}}>
                           Remove
                         </button>
                       </div>
