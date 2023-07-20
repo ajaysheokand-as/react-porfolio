@@ -7,6 +7,8 @@ import axios from 'axios';
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
+import { deleteProductImage } from "../../utils/Common";
+import { Header } from "../../components/Tools/Iimsd/Header";
 
 
 
@@ -23,7 +25,7 @@ export const AddProduct = () => {
     for (var i = 0; i < imageList.length; i++) {
       formData.append(`image`, imageList[i].file);
     }
-    axios.post('http://localhost:4000/upload/uploadImage',formData, {
+    axios.post('http://localhost:4000/images/uploadImage',formData, {
       headers:{
         'Access-Control-Allow-Origin': '*',
         "Content-Type": "multipart/form-data",
@@ -41,22 +43,8 @@ export const AddProduct = () => {
   }
 
   const deleteImage = () =>{
-    axios.delete(`http://localhost:4000/upload/uploadImage/${productData.image.filename}`, {
-      headers:{
-        'Access-Control-Allow-Origin': '*',
-        "Content-Type": "multipart/form-data",
-      }
-    }).then((response) => {
-      // handle the response
-          console.log("Image Uploaded",response);
-          // setImages(response.data.file);
-          setProductData({"image": response.data.file})
-        })
-        .catch((error) => {
-          // handle errors
-          console.log("Image not Uploaded",error);
-        });
-
+     const Image =  deleteProductImage(productData.image.filename);
+     setProductData({"image": Image})
   }
 
   const onChange = ( imageList, addUpdateIndex) => {
@@ -99,7 +87,7 @@ export const AddProduct = () => {
   }; // your form submit function which will invoke after successful validation
   return (
     <>
-    
+    <Header/>
     <div className="header-space">
       <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className="d-flex flex-row flex-wrap container m-3">
@@ -189,7 +177,7 @@ export const AddProduct = () => {
                         {/* <button className="m-1 fill" onClick={() => onImageUpdate(index)}>
                           Update
                         </button> */}
-                        <button className="ml-3 fill" onClick={() => {onImageRemove(index); deleteImage()}}>
+                        <button className="ml-3 fill" onClick={() => {onImageRemove(index); deleteImage(); }}>
                           Remove
                         </button>
                       </div>

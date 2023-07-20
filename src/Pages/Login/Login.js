@@ -64,7 +64,13 @@ export const Login = (props) => {
 		<div className="rem">
 			{/* <input id="chack" type="checkbox"/>
 			<label for="chack">remember me</label> */}
-			{/* <a href="#">forget password</a> */}
+			<a href="#" onClick={()=>{
+				 swal({
+					title: "Hi, Connect to Administrator",
+					text: "@ 85709-96916 (AjAy SHEOKAND)",
+					icon: "warning",
+				  });
+			}}>Forget Password</a>
 		</div>
 		<div className="login">
 			<button onClick={handleLogin}>Log in </button>

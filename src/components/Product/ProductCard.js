@@ -13,7 +13,7 @@ import swal from 'sweetalert';
   const navigate = useNavigate();
   const [laptops, setLaptops] = useState([]);
   const [updateProducts, setUpdateProducts] = useState(false);
-  const[isAdmin, setIsAdmin] = useState(props.isAdmin);
+  const isAdmin = props.isAdmin;
 
   useEffect(()=>{
     axios.get('http://localhost:4000/laptop/laptops',{
@@ -23,6 +23,7 @@ import swal from 'sweetalert';
       },
     })
     .then(function (response) {
+      console.log(response.data.Laptops,"this is response.data.Laptops")
       setLaptops(response.data.Laptops);
     })
     .catch(function (error) {
@@ -142,7 +143,10 @@ import swal from 'sweetalert';
         {
             laptops.map( (value, index) =>{
                 return <div key={index} className="product-card mb-5">
-                {/* <div className="product-img img-one"></div> */}
+                <div className="product-img ">
+                  {/* {getImage(value.image.filename)} */}
+                <img className="product-img" src={process.env.REACT_APP_BASE_URL + `/getImages/${value.image.filename}`} alt="My Image" />
+                </div>
                 <div className="product-text">
                   <h3>{value?.brand && value.brand}</h3>
                  
