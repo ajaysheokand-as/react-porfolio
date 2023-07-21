@@ -7,6 +7,7 @@ import { Auth } from "../../hoc/Auth";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
+import { Header } from "../Tools/Iimsd/Header";
 
 
  const ProductCardComp = (props) => {
@@ -131,6 +132,9 @@ import swal from 'sweetalert';
 // ];
   return (
     <>
+    {/* <div className="pt-5">
+    <Header/>
+    </div> */}
        <div className="d-flex justify-content-between header-space">
         <div>
           <h1>All Products</h1>

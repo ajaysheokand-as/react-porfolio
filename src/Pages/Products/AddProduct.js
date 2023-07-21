@@ -8,8 +8,6 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
 import { deleteProductImage } from "../../utils/Common";
-import { Header } from "../../components/Tools/Iimsd/Header";
-
 
 
 export const AddProduct = () => {
@@ -87,7 +85,6 @@ export const AddProduct = () => {
   }; // your form submit function which will invoke after successful validation
   return (
     <>
-    <Header/>
     <div className="header-space">
       <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className="d-flex flex-row flex-wrap container m-3">
