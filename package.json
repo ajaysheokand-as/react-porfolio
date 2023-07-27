@@ -1,5 +1,5 @@
 {
-  "name": "sunil-portfolio",
+  "name": "AjAy-SHEOKAND-portfolio",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,6 +26,7 @@
     "react-rating": "^2.0.5",
     "react-router-dom": "^6.12.1",
     "react-scripts": "4.0.1",
+    "react-select": "^5.7.4",
     "reactstrap": "^9.1.9",
     "sweetalert": "^2.1.2",
     "typewriter-effect": "^2.18.2",
