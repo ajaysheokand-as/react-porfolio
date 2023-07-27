@@ -70,4 +70,13 @@ export const ALLSTATES = ['All','Andhra Pradesh', 'Arunachal Pradesh', 'Telangan
 
 export const TOOLS = ["Visual Studio Code", "Git", "Npm (Node Package Manager)", "Sublime Text", "Linux", "insomnia", "Postman"]
 
+export const ADMINS_TYPES = [
+  { value: "super_admin", label: "Super Admin" },
+  { value: "e_commerce_admin", label: "E-Commerce Admin" },
+  { value: "social_media_admin", label: "Social Media Admin" },
+  { value: "medi_admin", label: "Medical Admin" },
+  { value: "parking_admin", label: "Parking System Admin" },
+  { value: "user", label: "User" }
+]
+
 export const URL = "http://localhost:3000/";

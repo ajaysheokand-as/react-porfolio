@@ -99,7 +99,7 @@ function NavBar(props) {
            <Nav.Item>
               <Nav.Link
                 as={Link}
-                to={props.checkIsAdmin ? "" : "/login"}
+                to={props.checkIsAdmin ? "/add_user" : "/login"}
                 onClick={() => props.checkIsAdmin ? handleLogout() : updateExpanded(false) }
               >
                 <AiOutlineUser style={{ marginBottom: "2px" }} /> {props.checkIsAdmin ? "Logout" : "Login" }
@@ -107,15 +107,15 @@ function NavBar(props) {
             </Nav.Item> 
            
 
-            {/* <Nav.Item>
+            {props.checkIsAdmin && <Nav.Item>
               <Nav.Link
-                href="#"
+                as={Link}
+                to={props.checkIsAdmin ? "/add_user" : ""}
                 target="_blank"
-                rel="noreferrer"
               >
-                <ImBlog style={{ marginBottom: "2px" }} /> Blogs
+                <AiOutlineUser style={{ marginBottom: "2px" }} /> Register
               </Nav.Link>
-            </Nav.Item> */}
+            </Nav.Item>}
           </Nav>
         </Navbar.Collapse>
       </Container>

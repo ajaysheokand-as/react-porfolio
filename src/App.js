@@ -21,6 +21,7 @@ import { Quotes } from "./Pages/Quotes";
 import { HartronPracticeSet } from "./components/Tools/Hartron/HartronPracticeSet";
 import { Login } from "./Pages/Login/Login";
 import { AddProduct } from "./Pages/Products/AddProduct";
+import { AddUser } from "./Pages/User/AddUser";
 import { Auth } from "./hoc/Auth";
 // import { AllProduct } from "./components/Product/AllProduct";
 function App(props) {
@@ -57,6 +58,7 @@ function App(props) {
             <Route path="/hartron" element={<HartronPracticeSet/>} />
             <Route path="/test_practice" element={<HartronPracticeSet isPracticeTest = {true}/>} />
             <Route path="/add_product" element={<AddProduct/>} />
+            <Route path="/add_user" element={<AddUser/>} />
           </Routes>
           <Footer />
         </div>
