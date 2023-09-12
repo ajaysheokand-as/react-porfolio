@@ -19,7 +19,7 @@ export const Quote = () => {
         const index = Math.floor(Math.random() * data.length);
         setState({
           quoteText: data[index].text,
-          quoteAuthor: data[index].author,
+          quoteAuthor: data[index].author.split(", type.fit").join(''),
         });
       });
   };

@@ -60,7 +60,6 @@ export const AddUser = () => {
   } = useForm();
   const onSubmit = (data) => {
     let finalData = {...productData, ...data};   
-    console.log("This is finalData=>",finalData ) 
     if(finalData.password !== finalData.match_password){
         swal({
         title: "Error",
@@ -68,8 +67,7 @@ export const AddUser = () => {
         icon: "warning",
       });
     }
-    axios.post('http://localhost:4000/users/register',{
-      body: finalData,
+    axios.post('http://localhost:4000/users/register', finalData, {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
